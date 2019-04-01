@@ -22,10 +22,10 @@ class ShowerThoughts(Resource):
 
   def post(self):
     global output
-    if(len(output) <= 1):
+    if(len(output) <= 2):
       thr = threading.Thread(target=calcNewItems)
       thr.start()
-    if(len(output) >= 2):
+    if(len(output) >= 1):
       return { 'response_type': 'in_channel', 'attachments':  [{ 'text': output.pop() }] }
     return { 'response_type': 'in_channel', 'attachments':  [{ 'text': 'try again' }] }
 
