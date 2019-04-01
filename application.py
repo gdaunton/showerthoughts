@@ -6,6 +6,10 @@ from textgenrnn import textgenrnn
 application = Flask(__name__)
 api = Api(application)
 
+global textgen
+textgen = textgenrnn(weights_path='showerthoughts_weights.hdf5', vocab_path='showerthoughts_vocab.json', config_path='showerthoughts_config.json')
+textgen.generate()
+
 class ShowerThoughts(Resource):
   def get(self):
     return 'Hello world'
@@ -17,8 +21,5 @@ class ShowerThoughts(Resource):
 api.add_resource(ShowerThoughts, '/')
 
 if __name__ == '__main__':
-  global textgen
   application.debug = True
-  textgen = textgenrnn(weights_path='showerthoughts_weights.hdf5', vocab_path='showerthoughts_vocab.json', config_path='showerthoughts_config.json')
-  textgen.generate()
   application.run()
